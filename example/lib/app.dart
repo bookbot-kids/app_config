@@ -18,10 +18,15 @@ extension AppConfig on App {
     app.debugConfig = {'url': 'https://www.google.com', 'property': 'happy'};
 
     // You can set different loggers for different modes.
-    // For example in release mode this will use Azure Monitor for logging
+    // For example in release mode this will use Azure Monitor for logging.
+    // The default for debug is the Console logger.
     final logOutput = AzureMonitorOutput(app.config);
-    app.setLogger(
-        Mode.release, Logger(printer: CloudPrinter(), output: logOutput));
+    final logger = Logger(printer: CloudPrinter(), output: logOutput);
+    app.setLogger(Mode.release, logger);
+
+    // Now that the configs and logger are setup, everything else can be setup
+
+    // CrashReport(logger);
   }
 }
 
