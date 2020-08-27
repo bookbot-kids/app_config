@@ -47,11 +47,11 @@ class App {
 
   void reset() => _config = {};
 
-  void setLogger(Mode mode, Logger l) {
-    _logger = mode == Mode.debug && kDebugMode ? l : _logger;
-    _logger = mode == Mode.release && kReleaseMode ? l : _logger;
-    _logger = mode == Mode.profile && kProfileMode ? l : _logger;
-    _logger = mode == Mode.web && kIsWeb ? l : _logger;
+  void setLogger(Mode mode, Logger logger) {
+    _logger = mode == Mode.debug && kDebugMode ? logger : _logger;
+    _logger = mode == Mode.release && kReleaseMode ? logger : _logger;
+    _logger = mode == Mode.profile && kProfileMode ? logger : _logger;
+    _logger = mode == Mode.web && kIsWeb ? logger : _logger;
   }
 
   Logger get logger => _logger;

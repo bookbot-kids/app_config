@@ -34,6 +34,10 @@ dependencies:
       url: git://github.com/bookbot-kids/sync_db.git
       ref: V2
 
+  analytics:
+    git:
+      url: git://github.com/bookbot-kids/analytics.git
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
