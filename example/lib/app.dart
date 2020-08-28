@@ -29,14 +29,13 @@ extension AppConfig on App {
 
     // This would also check for crashes and send to logOutput
     app.setLogger(Mode.release, logger);
-    // CrashReport(logOutput);
 
     // Now that the configs and logger are setup, everything else can be setup.
 
     // Local DB
     final syncDB = SyncDB.shared;
     syncDB.local = SembastDatabase.shared;
-    final models = [Model().storeName];
+    final models = [Model().tableName];
     syncDB.local.config(models);
 
     // Authentication
@@ -45,9 +44,10 @@ extension AppConfig on App {
     // Cloud Sync
     syncDB.sync = CosmosSync.shared;
     CosmosSync.config(config);
+    syncDB.sync.sync();
 
     // Analytics
-    //Analytics.shared.output = AnalyticsOutput();
+    //Analytics.shared.output = AnalyticsOutput(conf);
   }
 }
 

@@ -34,9 +34,9 @@ dependencies:
       url: git://github.com/bookbot-kids/sync_db.git
       ref: V2
 
-  analytics:
+  crash_report:
     git:
-      url: git://github.com/bookbot-kids/analytics.git
+      url: https://github.com/bookbot-kids/crash_report
 
 dev_dependencies:
   flutter_test:

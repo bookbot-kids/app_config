@@ -2,6 +2,7 @@ library app_config;
 
 import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
+import 'package:crash_report/crash_report.dart';
 
 enum Mode { debug, release, profile, web }
 
@@ -49,7 +50,11 @@ class App {
 
   void setLogger(Mode mode, Logger logger) {
     _logger = mode == Mode.debug && kDebugMode ? logger : _logger;
-    _logger = mode == Mode.release && kReleaseMode ? logger : _logger;
+
+    if (mode == Mode.release && kReleaseMode) {
+      _logger = logger;
+      CrashReport.config(logger);
+    }
     _logger = mode == Mode.profile && kProfileMode ? logger : _logger;
     _logger = mode == Mode.web && kIsWeb ? logger : _logger;
   }
