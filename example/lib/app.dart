@@ -5,7 +5,7 @@ import 'package:sync_db/sync_db.dart';
 import 'package:analytics/analytics.dart';
 
 extension AppConfig on App {
-  static void initialise() {
+  static Future<void> init() async {
     final app = App.shared;
 
     // The default config is the production config and has all the config for the app.
@@ -33,18 +33,18 @@ extension AppConfig on App {
     // Now that the configs and logger are setup, everything else can be setup.
 
     // Local DB
-    final syncDB = SyncDB.shared;
-    syncDB.local = SembastDatabase.shared;
-    final models = [Model().tableName];
-    syncDB.local.config(models);
+    final syncDb = Sync.shared;
+    syncDb.local = SembastDatabase.shared;
+    final models = ['Model'];
+    await syncDb.local.config(models);
 
     // Authentication
-    syncDB.user = AzureADB2CUser(config);
+    syncDb.user = AzureADB2CUser(config);
 
     // Cloud Sync
-    syncDB.sync = CosmosSync.shared;
+    syncDb.sync = CosmosSync.shared;
     CosmosSync.config(config);
-    syncDB.sync.sync();
+    syncDb.sync.sync();
 
     // Analytics
     //Analytics.shared.output = AnalyticsOutput(conf);
@@ -52,5 +52,7 @@ extension AppConfig on App {
 }
 
 void main() {
-  AppConfig.initialise();
+  AppConfig.init().then((value) => {
+        // Can end the splash screen
+      });
 }

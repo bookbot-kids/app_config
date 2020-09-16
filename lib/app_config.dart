@@ -53,7 +53,7 @@ class App {
 
     if (mode == Mode.release && kReleaseMode) {
       _logger = logger;
-      CrashReport.config(logger);
+      CrashReport.instance.init(logger);
     }
     _logger = mode == Mode.profile && kProfileMode ? logger : _logger;
     _logger = mode == Mode.web && kIsWeb ? logger : _logger;
