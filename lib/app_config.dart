@@ -1,6 +1,7 @@
 library app_config;
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:logger/logger.dart';
 import 'package:crash_report/crash_report.dart';
 
@@ -23,6 +24,7 @@ class App {
   Logger _logger = Logger(printer: PrettyPrinter(), output: ConsoleOutput());
 
   Map<String, dynamic> get config {
+    WidgetsFlutterBinding.ensureInitialized();
     if (_config.isEmpty) {
       _config = defaultConfig;
 
