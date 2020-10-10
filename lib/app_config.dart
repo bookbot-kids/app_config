@@ -21,7 +21,7 @@ class App {
   Map<String, dynamic> webConfig = {};
   Map<String, dynamic> flavorConfig = {};
 
-  Logger _logger = Logger(printer: PrettyPrinter(), output: ConsoleOutput());
+  Logger _logger = Logger(printer: SimplePrinter(), output: ConsoleOutput());
 
   Map<String, dynamic> get config {
     WidgetsFlutterBinding.ensureInitialized();
