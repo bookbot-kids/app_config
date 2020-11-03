@@ -62,4 +62,12 @@ class App {
   }
 
   Logger get logger => _logger;
+
+  Future<void> recordError(FlutterErrorDetails details) async {
+    await CrashReport.shared.recordFlutterError(details);
+  }
+
+  void recordErrorInZoned(Function func) {
+    CrashReport.shared.executeInZoned(func);
+  }
 }
