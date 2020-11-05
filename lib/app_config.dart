@@ -50,15 +50,18 @@ class App {
 
   void reset() => _config = {};
 
-  void setLogger(Mode mode, Logger logger) {
-    _logger = mode == Mode.debug && kDebugMode ? logger : _logger;
+  void setLogger(Mode mode, Logger logger, {bool ignoreChecking = false}) {
+    _logger =
+        mode == Mode.debug && (ignoreChecking || kDebugMode) ? logger : _logger;
 
-    if (mode == Mode.release && kReleaseMode) {
+    if (mode == Mode.release && (ignoreChecking || kReleaseMode)) {
       _logger = logger;
       CrashReport.init(logger);
     }
-    _logger = mode == Mode.profile && kProfileMode ? logger : _logger;
-    _logger = mode == Mode.web && kIsWeb ? logger : _logger;
+    _logger = mode == Mode.profile && (ignoreChecking || kProfileMode)
+        ? logger
+        : _logger;
+    _logger = mode == Mode.web && (ignoreChecking || kIsWeb) ? logger : _logger;
   }
 
   Logger get logger => _logger;
