@@ -21,7 +21,9 @@ class App {
   Map<String, dynamic> webConfig = {};
   Map<String, dynamic> flavorConfig = {};
 
-  Logger _logger = Logger(printer: SimplePrinter(), output: ConsoleOutput());
+  Logger _logger = Logger(
+      printer: SimplePrinter(colors: false, printTime: true),
+      output: ConsoleOutput());
 
   Map<String, dynamic> get config {
     WidgetsFlutterBinding.ensureInitialized();
@@ -56,7 +58,7 @@ class App {
 
     if (mode == Mode.release && (ignoreChecking || kReleaseMode)) {
       _logger = logger;
-      CrashReport.init(logger);
+      CrashReport.init(_logger);
     }
     _logger = mode == Mode.profile && (ignoreChecking || kProfileMode)
         ? logger
