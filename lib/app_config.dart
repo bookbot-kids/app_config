@@ -26,7 +26,6 @@ class App {
       output: ConsoleOutput());
 
   Map<String, dynamic> get config {
-    WidgetsFlutterBinding.ensureInitialized();
     if (_config.isEmpty) {
       _config = defaultConfig;
 
@@ -48,6 +47,10 @@ class App {
     }
 
     return _config;
+  }
+
+  set config(Map<String, dynamic> value) {
+    _config = value;
   }
 
   void reset() => _config = {};
