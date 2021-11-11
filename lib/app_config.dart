@@ -1,17 +1,18 @@
 library app_config;
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
 import 'package:logger/logger.dart';
 import 'package:crash_report/crash_report.dart';
+import 'package:singleton/singleton.dart';
 
 enum Mode { debug, release, profile, web }
 
 /// App handles the global configurations and variables that need to be accessed anywhere in the app
 /// App is configured in your own app.dart and extends App e.g. `extension AppConfig on App`. See the example folder and app.dart in this package.
 class App {
+  factory App() => Singleton.lazy(() => App._privateConstructor()).instance;
   App._privateConstructor();
-  static App shared = App._privateConstructor();
+  static App shared = App();
 
   Map<String, dynamic> _config = {};
 
