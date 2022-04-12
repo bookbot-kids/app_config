@@ -73,12 +73,12 @@ class App {
   Logger get logger => _logger;
 
   Future<void> recordError(FlutterErrorDetails details,
-      {bool Function(dynamic exception)? callback}) async {
+      {bool Function(dynamic exception, dynamic stacktrace)? callback}) async {
     await CrashReport.shared.recordFlutterError(details, callback: callback);
   }
 
   void recordErrorInZoned(Function func,
-      {bool Function(dynamic exception)? callback}) {
+      {bool Function(dynamic exception, dynamic stacktrace)? callback}) {
     CrashReport.shared.executeInZoned(func, callback: callback);
   }
 }
