@@ -2,7 +2,6 @@ import 'package:app_config/app_config.dart';
 import 'package:logger/logger.dart';
 import 'package:cloud_logger/cloud_logger.dart';
 import 'package:sync_db/sync_db.dart';
-import 'package:analytics/analytics.dart';
 
 extension AppConfig on App {
   static Future<void> init() async {
@@ -11,8 +10,8 @@ extension AppConfig on App {
     // The default config is the production config and has all the config for the app.
     // Other modes (e.g. debug, profile) can override specific properties of this config.
     app.defaultConfig = {
-      'azureMonitorWorkbookId': '77344-dshdhd-3737-dhdhe-363564',
-      'azureMonitorSharedKey': 'hgdshjsj-36363-dshdhe-26474-xnzowd',
+      'azureMonitorWorkbookId': 'test_workbook_id',
+      'azureMonitorSharedKey': 'test_workbook_key',
       'azureMonitorLogName': 'Bookbot App',
       'proxyUrl': 'https://proxy.activecampaign.com',
     };
@@ -35,19 +34,6 @@ extension AppConfig on App {
     // Local DB
     final syncDb = Sync.shared;
     syncDb.local = SembastDatabase.shared;
-    final models = ['Model'];
-    await syncDb.local.config(models);
-
-    // Authentication
-    syncDb.user = AzureADB2CUser(config);
-
-    // Cloud Sync
-    syncDb.sync = CosmosSync.shared;
-    CosmosSync.config(config);
-    syncDb.sync.sync();
-
-    // Analytics
-    //Analytics.shared.output = AnalyticsOutput(conf);
   }
 }
 

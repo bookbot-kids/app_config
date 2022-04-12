@@ -10,7 +10,7 @@ enum Mode { debug, release, profile, web }
 /// App handles the global configurations and variables that need to be accessed anywhere in the app
 /// App is configured in your own app.dart and extends App e.g. `extension AppConfig on App`. See the example folder and app.dart in this package.
 class App {
-  factory App() => Singleton.lazy(() => App._privateConstructor()).instance;
+  factory App() => Singleton.lazy(() => App._privateConstructor());
   App._privateConstructor();
   static App shared = App();
 
@@ -72,11 +72,13 @@ class App {
 
   Logger get logger => _logger;
 
-  Future<void> recordError(FlutterErrorDetails details) async {
-    await CrashReport.shared.recordFlutterError(details);
+  Future<void> recordError(FlutterErrorDetails details,
+      {bool Function(dynamic exception)? callback}) async {
+    await CrashReport.shared.recordFlutterError(details, callback: callback);
   }
 
-  void recordErrorInZoned(Function func) {
-    CrashReport.shared.executeInZoned(func);
+  void recordErrorInZoned(Function func,
+      {bool Function(dynamic exception)? callback}) {
+    CrashReport.shared.executeInZoned(func, callback: callback);
   }
 }
