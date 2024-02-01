@@ -1,8 +1,9 @@
 library app_config;
 
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
-import 'package:crash_report/crash_report.dart';
 import 'package:singleton/singleton.dart';
 
 enum Mode { debug, release, profile, web }
@@ -62,7 +63,6 @@ class App {
 
     if (mode == Mode.release && (ignoreChecking || kReleaseMode)) {
       _logger = logger;
-      CrashReport.init(_logger);
     }
     _logger = mode == Mode.profile && (ignoreChecking || kProfileMode)
         ? logger
@@ -74,11 +74,20 @@ class App {
 
   Future<void> recordError(FlutterErrorDetails details,
       {bool Function(dynamic exception, dynamic stacktrace)? callback}) async {
-    await CrashReport.shared.recordFlutterError(details, callback: callback);
+    if (callback == null || !callback(details.exception, details.stack)) {
+      _logger.f('flutter error ${details.exception}',
+          error: details.exception, stackTrace: details.stack);
+    }
   }
 
   void recordErrorInZoned(Function func,
       {bool Function(dynamic exception, dynamic stacktrace)? callback}) {
-    CrashReport.shared.executeInZoned(func, callback: callback);
+    runZonedGuarded(() {
+      func();
+    }, (e, stackTrace) {
+      if (callback == null || !callback(e, stackTrace)) {
+        _logger.f('runZoned error $e', error: e, stackTrace: stackTrace);
+      }
+    });
   }
 }

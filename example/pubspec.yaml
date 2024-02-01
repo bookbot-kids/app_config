@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.17.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -31,7 +31,7 @@ dependencies:
   app_config:
     path: ../../app_config
 
-  logger: ^1.1.0
+  logger: ^2.0.2+1
   cloud_logger:
     git:
       url: https://github.com/bookbot-kids/cloud_logger.git
@@ -43,8 +43,8 @@ dependencies:
     git:
       url: https://github.com/bookbot-kids/robust-http.git   
 
-dependency_overrides:
-  path: ^1.8.1
+# dependency_overrides:
+#   path: ^1.8.1
 
 dev_dependencies:
   flutter_test:

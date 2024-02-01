@@ -1,19 +1,17 @@
 name: app_config
-description: A new Flutter project.
+description: App configuration flutter 
 publish_to: 'none'
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.17.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
   singleton: ^0.0.3-nullsafety
-  crash_report:
-    git:
-      url: https://github.com/bookbot-kids/crash_report
+  logger: ^2.0.2+1
 
 dev_dependencies:
   flutter_test:

@@ -1,7 +1,6 @@
 import 'package:app_config/app_config.dart';
 import 'package:logger/logger.dart';
 import 'package:cloud_logger/cloud_logger.dart';
-import 'package:sync_db/sync_db.dart';
 
 extension AppConfig on App {
   static Future<void> init() async {
@@ -30,10 +29,6 @@ extension AppConfig on App {
     app.setLogger(Mode.release, logger);
 
     // Now that the configs and logger are setup, everything else can be setup.
-
-    // Local DB
-    final syncDb = Sync.shared;
-    syncDb.local = SembastDatabase.shared;
   }
 }
 
